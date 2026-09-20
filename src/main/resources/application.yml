@@ -1,10 +1,17 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: product-service
-
-server:
-  port: 8081
+  mvc:
+    problemdetails:
+      enabled: true
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
