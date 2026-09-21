@@ -108,6 +108,9 @@ public class SupplierController {
     @Operation(summary = "Delete a supplier")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Supplier deleted"),
+            @ApiResponse(responseCode = "400", description = "Malformed id",
+                    content = @Content(mediaType = "application/problem+json",
+                            schema = @Schema(implementation = ProblemDetail.class))),
             @ApiResponse(responseCode = "404", description = "Supplier not found",
                     content = @Content(mediaType = "application/problem+json",
                             schema = @Schema(implementation = ProblemDetail.class)))
