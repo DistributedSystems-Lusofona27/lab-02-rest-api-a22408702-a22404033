@@ -10,6 +10,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import pt.ulusofona.cd.supplier.exception.DuplicateTaxIdException;
+import pt.ulusofona.cd.supplier.exception.SupplierNotFoundException;
 
 import java.net.URI;
 import java.time.Instant;
@@ -38,6 +40,26 @@ public class GlobalExceptionHandler {
                 HttpStatus.CONFLICT, ex.getMessage());
         problem.setTitle("Duplicate SKU");
         problem.setType(URI.create(PROBLEM_BASE + "duplicate-sku"));
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
+
+    @ExceptionHandler(SupplierNotFoundException.class)
+    public ProblemDetail handleSupplierNotFound(SupplierNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND, ex.getMessage());
+        problem.setTitle("Supplier not found");
+        problem.setType(URI.create(PROBLEM_BASE + "supplier-not-found"));
+        problem.setProperty("timestamp", Instant.now());
+        return problem;
+    }
+
+    @ExceptionHandler(DuplicateTaxIdException.class)
+    public ProblemDetail handleDuplicateTaxId(DuplicateTaxIdException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.CONFLICT, ex.getMessage());
+        problem.setTitle("Duplicate tax ID");
+        problem.setType(URI.create(PROBLEM_BASE + "duplicate-tax-id"));
         problem.setProperty("timestamp", Instant.now());
         return problem;
     }

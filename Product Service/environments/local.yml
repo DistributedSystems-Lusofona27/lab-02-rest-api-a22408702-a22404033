@@ -6,3 +6,6 @@ variables:
   - name: productId
     value: ""
     description: ""
+  - name: supplierId
+    value: ""
+    description: ""

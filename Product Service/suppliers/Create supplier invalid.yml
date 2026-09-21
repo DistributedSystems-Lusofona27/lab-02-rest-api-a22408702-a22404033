@@ -1,0 +1,33 @@
+info:
+  name: Create supplier invalid
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{baseUrl}}/api/v1/suppliers"
+  body:
+    type: json
+    data: |2-
+        {
+          "companyName": "",
+          "email": "not-an-email",
+          "taxId": "ABC",
+          "address": "",
+          "city": "Lisboa",
+          "postalCode": "1100052"
+        }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
