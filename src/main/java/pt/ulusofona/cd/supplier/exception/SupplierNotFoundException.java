@@ -1,4 +1,10 @@
 package pt.ulusofona.cd.supplier.exception;
 
-public class SupplierNotFoundException {
+import java.util.UUID;
+
+public class SupplierNotFoundException extends RuntimeException {
+
+    public SupplierNotFoundException(UUID id) {
+        super("Supplier not found: " + id);
+    }
 }
